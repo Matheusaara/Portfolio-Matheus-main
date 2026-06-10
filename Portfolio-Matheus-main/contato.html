@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Matheus Araújo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-circles"></div> <!-- O JavaScript vai preencher isso -->
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo"><MatheusAraujo /></a>
+            <div class="nav-controls">
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="canais.html">Canais</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+                <button id="theme-toggle" aria-label="Alternar tema">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="hamburger-menu" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="mobile-menu">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="canais.html">Canais</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-section full-width-section">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <div id="form-message-container" class="form-message-container">
+                    <!-- Mensagem de sucesso/erro será inserida aqui pelo JS -->
+                </div>
+                <div class="contact-page-layout">
+                    <div class="contact-info-card">
+                        <h3>Informações de Contato</h3>
+                        <p>Estou sempre aberto a novas oportunidades e colaborações. Sinta-se à vontade para me contatar através dos canais abaixo:</p>
+                        <div class="contact-details">
+                            <p><i class="fas fa-envelope"></i> matheusaraujoguilhermino@gmail.com</p>
+                            <p><i class="fab fa-github"></i> Matheusaara</p>
+                            <p><i class="fab fa-linkedin-in"></i> Matheus Araújo</p>
+                        </div>
+                    </div>
+                    <div class="contact-form-epic">
+                        <h3>Envie uma Mensagem</h3>
+                        <p>Preencha o formulário e entrarei em contato o mais breve possível.</p>
+                        <form action="https://formsubmit.co/matheusaraujoguilhermino@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="Nova Mensagem do Portfólio!">
+                            <input type="hidden" name="_captcha" value="false">
+                            <!-- Campo _next para redirecionar para a própria página com status de sucesso -->
+                            <input type="hidden" name="_next" value="https://seusite.com/contato.html?status=success">
+
+                            <label for="name">Nome:</label>
+                            <input type="text" id="name" name="name" required>
+
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+
+                            <label for="message">Mensagem:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+
+                            <button type="submit" class="btn-epic">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Matheus Araújo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

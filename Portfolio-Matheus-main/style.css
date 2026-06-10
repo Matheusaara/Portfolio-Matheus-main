@@ -1,0 +1,890 @@
+/* Variáveis CSS para Light/Dark Mode */
+:root {
+    --primary-color: #00FF00; /* Verde Neon */
+    --secondary-color: #0A0A0A; /* Quase preto */
+    --text-color: #E0E0E0; /* Cinza claro */
+    --background-color: #1A1A1A; /* Fundo escuro */
+    --card-background: #2A2A2A; /* Fundo de cards um pouco mais claro */
+    --border-color: #3A3A3A; /* Borda sutil */
+    --shadow-color: rgba(0, 255, 0, 0.2); /* Sombra verde neon */
+    --hover-glow: #00FF00; /* Brilho ao passar o mouse */
+    --code-font: 'Fira Code', monospace;
+    --body-font: 'Montserrat', sans-serif;
+    --circle-color: rgba(0, 255, 0, 0.08); /* Cor dos círculos de fundo */
+}
+
+[data-theme="light"] {
+    --primary-color: #008000; /* Verde escuro */
+    --secondary-color: #F0F0F0; /* Quase branco */
+    --text-color: #333333; /* Cinza escuro */
+    --background-color: #FFFFFF; /* Fundo branco */
+    --card-background: #F8F8F8; /* Fundo de cards claro */
+    --border-color: #DDDDDD; /* Borda clara */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra suave */
+    --hover-glow: #008000; /* Brilho verde escuro */
+    --circle-color: rgba(0, 128, 0, 0.05); /* Cor dos círculos de fundo (light) */
+}
+
+/* Efeito de background animado (partículas sutis) */
+body {
+    font-family: var(--body-font);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* Classe para desabilitar o scroll do body quando o menu mobile está aberto */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Pseudo-elemento para o efeito de background de partículas */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(0, 255, 0, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at bottom right, rgba(0, 255, 0, 0.05) 0%, transparent 30%);
+    background-size: 200% 200%;
+    animation: background-pan 20s ease infinite alternate;
+    z-index: -3; /* AINDA MAIS BAIXO que os círculos */
+    opacity: 0.7;
+}
+
+@keyframes background-pan {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* Círculos Flutuantes no Fundo */
+.background-circles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Garante que os círculos não causem scroll */
+    z-index: -1; /* Este é o z-index chave para os círculos */
+    pointer-events: none; /* Não interfere com cliques */
+}
+
+/* Estilo para cada círculo */
+.background-circles div {
+    position: absolute;
+    background-color: var(--circle-color);
+    border-radius: 50%;
+    animation: floatAndFade infinite ease-in-out;
+    opacity: 0; /* Começa invisível */
+}
+
+@keyframes floatAndFade {
+    0% {
+        transform: translate(var(--start-x), var(--start-y)) scale(var(--start-scale));
+        opacity: 0;
+    }
+    25% {
+        opacity: var(--max-opacity);
+    }
+    50% {
+        transform: translate(var(--mid-x), var(--mid-y)) scale(var(--mid-scale));
+        opacity: var(--max-opacity);
+    }
+    75% {
+        opacity: var(--max-opacity);
+    }
+    100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(var(--end-scale));
+        opacity: 0;
+    }
+}
+
+/* Layout Geral */
+main {
+    flex: 1; /* Garante que o main ocupe o espaço restante */
+    z-index: 0; /* Garante que o conteúdo esteja acima dos círculos */
+}
+
+.full-width-section {
+    width: 100%;
+    padding: 80px 0;
+    box-sizing: border-box;
+    position: relative; /* Para que o z-index funcione */
+    z-index: 1; /* Garante que as seções estejam acima dos círculos */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: var(--background-color);
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center; /* Centraliza o nav */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Garante que o header esteja no topo */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Limita a largura da nav */
+}
+
+.logo {
+    font-family: var(--code-font);
+    font-size: 1.8em;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--hover-glow);
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os itens de controle */
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Botão de alternar tema */
+#theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#theme-toggle:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Menu Hambúrguer (Mobile) */
+.hamburger-menu {
+    display: none; /* Escondido por padrão em desktop */
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.8em;
+    cursor: pointer;
+    z-index: 1001; /* Garante que o hambúrguer esteja acima de tudo */
+    position: relative; /* Para que o z-index funcione */
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color); /* Fundo do menu */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%); /* Escondido à esquerda */
+    transition: transform 0.4s ease-in-out;
+    z-index: 999; /* Abaixo do header, acima do overlay */
+    opacity: 0;
+    pointer-events: none; /* Não interage quando escondido */
+}
+
+.mobile-menu.active {
+    transform: translateX(0); /* Visível */
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.mobile-nav-links li {
+    margin: 20px 0;
+}
+
+.mobile-nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Overlay do menu mobile */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+    z-index: 998; /* Abaixo do menu mobile */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Hero Section */
+.hero-epic {
+    text-align: center;
+    padding: 100px 0; /* Altura da seção */
+    background: none; /* Remove background do full-width-section */
+    border-bottom: none; /* Remove borda do full-width-section */
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--hover-glow);
+}
+
+.greeting {
+    font-size: 1.2em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.hero-epic h1 {
+    font-size: 3.8em;
+    color: var(--primary-color);
+    margin: 0;
+    text-shadow: 0 0 10px var(--shadow-color);
+}
+
+.tagline {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.social-links-epic {
+    display: flex;
+    gap: 25px;
+}
+
+.social-links-epic a {
+    color: var(--text-color);
+    font-size: 2.5em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links-epic a:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Seção Sobre Mim */
+.about-epic {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px; /* Espaçamento entre as seções */
+    padding: 40px; /* Padding interno */
+}
+
+.about-epic h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.about-epic h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.about-epic p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Seção de Habilidades */
+.skills-epic {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    padding: 40px;
+}
+
+.skills-epic h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.skills-epic h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.skills-grid-epic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    gap: 30px;
+    max-width: 900px; /* Limita a largura da grade */
+    margin: 0 auto; /* Centraliza a grade */
+}
+
+.skill-item-epic {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-item-epic:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 20px var(--shadow-color);
+    border-color: var(--primary-color);
+}
+
+.skill-item-epic i {
+    font-size: 3.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.skill-item-epic h3 {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Seção de Canais */
+.channels-section {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    padding: 40px;
+}
+
+.channels-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.channels-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.channels-grid-epic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+    gap: 30px;
+    max-width: 1000px; /* Limita a largura da grade */
+    margin: 0 auto; /* Centraliza a grade */
+}
+
+.channel-card-epic {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove sublinhado do link */
+    color: inherit; /* Herda a cor do texto */
+}
+
+.channel-card-epic:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 20px var(--shadow-color);
+    border-color: var(--primary-color);
+}
+
+.channel-card-epic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid var(--primary-color);
+}
+
+.channel-card-epic h3 {
+    font-size: 1.2em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Seção de Contato */
+.contact-section {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    padding: 40px;
+}
+
+.contact-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.contact-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.contact-page-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contact-info-card, .contact-form-epic {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 40px; /* Padding interno */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclui padding e borda na largura/altura */
+    flex: 1; /* Permite que os cards cresçam */
+    min-width: 300px; /* Largura mínima para o card */
+    max-width: 550px; /* Largura máxima para o card */
+}
+
+.contact-info-card h3, .contact-form-epic h3 {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.contact-info-card p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.contact-details p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.contact-details i {
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+.contact-form-epic form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form-epic label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.contact-form-epic input[type="text"],
+.contact-form-epic input[type="email"],
+.contact-form-epic textarea {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px;
+    color: var(--text-color);
+    font-family: var(--body-font);
+    font-size: 1em;
+    box-sizing: border-box; /* Inclui padding e borda na largura/altura */
+    width: 100%; /* Ocupa 100% da largura disponível */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form-epic input:focus,
+.contact-form-epic textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--shadow-color);
+    outline: none;
+}
+
+.contact-form-epic textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 120px;
+}
+
+/* Botão de Enviar Mensagem */
+.contact-form-epic .btn-epic { /* Adiciona especificidade */
+    margin-top: 20px;
+    width: auto; /* Permite que o botão se ajuste ao conteúdo */
+    align-self: flex-start; /* Alinha o botão à esquerda dentro do flex container */
+}
+
+/* Mensagens de Formulário (Sucesso/Erro) */
+.form-message-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.form-message {
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-message.success {
+    background-color: #1a4d2e; /* Verde escuro */
+    color: #e6ffe6; /* Verde claro */
+    border: 1px solid #00ff00;
+}
+
+.form-message.error {
+    background-color: #4d1a1a; /* Vermelho escuro */
+    color: #ffe6e6; /* Vermelho claro */
+    border: 1px solid #ff0000;
+}
+
+.form-message i {
+    font-size: 1.3em;
+}
+
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Empurra o footer para baixo */
+    z-index: 1; /* Garante que o footer esteja acima dos círculos */
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    header {
+        padding: 15px 30px;
+    }
+
+    .skills-grid-epic {
+        max-width: 800px;
+        gap: 20px;
+    }
+
+    .channels-grid-epic {
+        max-width: 900px;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-links {
+        display: none; /* Esconde links de desktop */
+    }
+
+    .hamburger-menu {
+        display: block; /* Mostra o hambúrguer */
+    }
+
+    .hero-epic h1 {
+        font-size: 3.5em;
+    }
+
+    .tagline {
+        font-size: 1.2em;
+    }
+
+    .full-width-section {
+        padding: 60px 0;
+    }
+
+    .container {
+        padding: 0 25px;
+    }
+
+    header {
+        padding: 15px 25px;
+    }
+
+    .skills-grid-epic {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+        max-width: 600px;
+    }
+
+    .channels-grid-epic {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+        max-width: 700px;
+    }
+
+    .contact-info-card, .contact-form-epic {
+        width: 100%; /* Ocupa toda a largura */
+        max-width: 600px; /* Limita a largura máxima */
+        margin: 0 auto; /* Centraliza */
+        padding: 35px; /* Ajusta padding interno */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-epic h1 {
+        font-size: 3em;
+    }
+
+    .tagline {
+        font-size: 1.1em;
+    }
+
+    .social-links-epic {
+        gap: 20px;
+    }
+
+    .social-links-epic a {
+        font-size: 2em;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .about-epic h2, .skills-epic h2, .channels-section h2, .contact-section h2 {
+        font-size: 1.8em;
+    }
+
+    .skills-grid-epic {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+        max-width: 350px; /* Limita a largura para não ficar muito largo */
+    }
+
+    .channels-grid-epic {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+        max-width: 350px;
+    }
+
+    .skill-item-epic, .channel-card-epic {
+        padding: 25px;
+    }
+
+    .channel-card-epic img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .contact-info-card, .contact-form-epic {
+        padding: 30px; /* Diminui ainda mais o padding interno */
+    }
+
+    .btn-epic {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+
+    .mobile-nav-links a {
+        font-size: 1.5em;
+    }
+
+    .full-width-section {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 25px; /* Aumenta o padding lateral em telas pequenas */
+    }
+
+    header {
+        padding: 15px 25px; /* Ajusta padding do header */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-epic h1 {
+        font-size: 2.5em;
+    }
+
+    .tagline {
+        font-size: 1em;
+    }
+
+    .logo {
+        font-size: 1.5em;
+    }
+
+    .full-width-section {
+        padding: 30px 0;
+    }
+
+    .container {
+        padding: 0 20px; /* Padding lateral para telas muito pequenas */
+    }
+
+    header {
+        padding: 15px 20px; /* Ajusta padding do header */
+    }
+
+    .contact-info-card, .contact-form-epic {
+        padding: 25px; /* Diminui o padding interno dos cards de contato */
+    }
+}
