@@ -76,6 +76,6 @@ Este projeto é de código aberto e está disponível para uso pessoal e profiss
 
 ---
 
-**Desenvolvido por:** Matheus Aara  
+**Desenvolvido por:** Matheus Araújo  
 **Data:** 2026  
 **Repositório:** [GitHub](https://github.com/Matheusaara/Portfolio-Matheus-main)
