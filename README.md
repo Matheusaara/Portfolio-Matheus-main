@@ -1,4 +1,4 @@
-# 🎨 Portfólio - Matheus Aara
+# 🎨 Portfólio - Matheus Araújo
 
 Bem-vindo ao meu portfólio! Este é um projeto pessoal que apresenta meus trabalhos, habilidades e informações de contato.
 
